@@ -54,16 +54,22 @@ func makeCmdDone(filename string) *commander.Command {
 				}
 			}
 			line := strings.TrimSpace(string(b))
-			if match && !strings.HasPrefix(line, "-") {
-				_, err := fmt.Fprintf(w, "-%s\n", line)
-				if err != nil {
-					return err
+			if match {
+				if !strings.HasPrefix(line, "-") {
+					_, err := fmt.Fprintf(w, "-%s\n", line)
+					if err != nil {
+						return err
+					}
+				} else {
+					_, err := fmt.Fprintf(w, " %s\n", line[1:])
+					if err != nil {
+						return err
+					}
 				}
-			} else {
-				_, err := fmt.Fprintf(w, "%s\n", line)
-				if err != nil {
-					return err
-				}
+			}
+			_, err = fmt.Fprintf(w, "%s\n", line)
+			if err != nil {
+				return err
 			}
 			n++
 		}
