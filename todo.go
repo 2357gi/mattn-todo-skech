@@ -37,6 +37,7 @@ func main() {
 		makeCmdList(filename),
 		makeCmdAdd(filename),
 		makeCmdDone(filename),
+		makeCmdRemove(filename),
 	}
 	err = command.Dispatch(os.Args[1:])
 	if err != nil {
